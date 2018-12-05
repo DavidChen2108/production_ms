@@ -8,13 +8,13 @@
   <display-name>production_ssm</display-name>
   
   <!-- Spring容器监听器 -->
-  <context-param>
+ <!-- <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:spring/applicationContext-*.xml</param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+  </listener>-->
   
   <!-- 前端控制器 -->
   <servlet>
@@ -25,7 +25,7 @@
       <param-name>contextConfigLocation</param-name>
       <!-- 配置文件的地址 如果不配置contextConfigLocation， 默认查找的配置文件名称classpath下的：servlet名称+"-serlvet.xml"
       		即：springmvc-serlvet.xml -->
-      <param-value>classpath:spring/springmvc-servlet.xml</param-value>
+      <param-value>classpath:</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
@@ -35,9 +35,7 @@
 			如果配置/*，返回jsp也由springmvc解析，这是不对的。 -->
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  
- 
-  
+
   
   <!-- post乱码处理 -->
   <filter>
