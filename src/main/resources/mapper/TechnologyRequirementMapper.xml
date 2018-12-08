@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.TechnologyRequirementMapper">
+  <resultMap id="BaseResultMap" type="bean.TechnologyRequirement">
+    <id column="technology_requirement_id" jdbcType="VARCHAR" property="technologyRequirementId" />
+    <result column="technology_id" jdbcType="VARCHAR" property="technologyId" />
+    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="revise_time" jdbcType="TIMESTAMP" property="reviseTime" />
+    <result column="technology_name" jdbcType="VARCHAR" property="technologyName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    technology_requirement_id, technology_id, requirement, add_time, revise_time,technology_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from technology_requirement
+    where technology_requirement_id = #{technologyRequirementId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllRequirement" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+     *
+    from technology_requirement
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from technology_requirement
+    where technology_requirement_id = #{technologyRequirementId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="bean.TechnologyRequirement">
+    insert into technology_requirement (technology_requirement_id, technology_id, 
+      requirement, add_time, revise_time
+      )
+    values (#{technologyRequirementId,jdbcType=VARCHAR}, #{technologyId,jdbcType=VARCHAR}, 
+      #{requirement,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{reviseTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="bean.TechnologyRequirement">
+    update technology_requirement
+    set technology_id = #{technologyId,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      revise_time = #{reviseTime,jdbcType=TIMESTAMP}
+    where technology_requirement_id = #{technologyRequirementId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+     *
+    from technology_requirement
+    where
+    technology_requirement= #{requirement}
+  </select>
+
+  <select id="selectByPageAndSelections" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    technology_requirement_id, r.technology_id, requirement, add_time, revise_time ,technology_name
+    from technology_requirement r left join technology t  on r.technology_id = t.technology_id
+
+  </select>
+</mapper>

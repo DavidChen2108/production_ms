@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.TechnologyManageMapper">
+  <resultMap id="BaseResultMap" type="bean.TechnologyManage">
+    <id column="technology_id" jdbcType="VARCHAR" property="technologyId" />
+    <result column="technology_name" jdbcType="VARCHAR" property="technologyName" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="vital_process_period" jdbcType="VARCHAR" property="vitalProcessPeriod" />
+    <result column="standard_capacity" jdbcType="INTEGER" property="standardCapacity" />
+    <result column="overtime_standard_capacity" jdbcType="INTEGER" property="overtimeStandardCapacity" />
+    <result column="overtime_overfulfil_capacity" jdbcType="INTEGER" property="overtimeOverfulfilCapacity" />
+    <result column="double_capacity" jdbcType="INTEGER" property="doubleCapacity" />
+    <result column="overfulfil_capacity" jdbcType="INTEGER" property="overfulfilCapacity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    technology_id, technology_name, price, vital_process_period, standard_capacity, overtime_standard_capacity, 
+    overtime_overfulfil_capacity, double_capacity, overfulfil_capacity
+  </sql>
+  <select id="selectAllTechnology" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    *
+    from technology
+  </select>
+
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    *
+    from technology
+    where technology_name = #{value}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from technology
+    where technology_id = #{technologyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from technology
+    where technology_id = #{technologyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="bean.TechnologyManage">
+    insert into technology (technology_id, technology_name, price, 
+      vital_process_period, standard_capacity, overtime_standard_capacity, 
+      overtime_overfulfil_capacity, double_capacity, 
+      overfulfil_capacity)
+    values (#{technologyId,jdbcType=VARCHAR}, #{technologyName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{vitalProcessPeriod,jdbcType=VARCHAR}, #{standardCapacity,jdbcType=INTEGER}, #{overtimeStandardCapacity,jdbcType=INTEGER}, 
+      #{overtimeOverfulfilCapacity,jdbcType=INTEGER}, #{doubleCapacity,jdbcType=INTEGER}, 
+      #{overfulfilCapacity,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="bean.TechnologyManage">
+    update technology
+    set technology_name = #{technologyName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      vital_process_period = #{vitalProcessPeriod,jdbcType=VARCHAR},
+      standard_capacity = #{standardCapacity,jdbcType=INTEGER},
+      overtime_standard_capacity = #{overtimeStandardCapacity,jdbcType=INTEGER},
+      overtime_overfulfil_capacity = #{overtimeOverfulfilCapacity,jdbcType=INTEGER},
+      double_capacity = #{doubleCapacity,jdbcType=INTEGER},
+      overfulfil_capacity = #{overfulfilCapacity,jdbcType=INTEGER}
+    where technology_id = #{technologyId,jdbcType=VARCHAR}
+  </update>
+</mapper>
