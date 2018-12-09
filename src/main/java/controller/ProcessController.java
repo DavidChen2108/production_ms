@@ -2,10 +2,12 @@ package controller;
 
 
 import bean.Process;
+import bean.TechnologyPlan;
 import bean.TechnologyRequirement;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.ProcessService;
@@ -157,7 +159,7 @@ public class ProcessController {
         return map;
     }
     @ResponseBody
-    @RequestMapping("//search_process_by_technologyPlanId")
+    @RequestMapping("/search_process_by_technologyPlanId")
     public Map technology_by_technologyName(HttpServletRequest request){
         String value = request.getParameter("searchValue");
         List<Process> manage = service.technologyPlanId(value);
@@ -176,7 +178,22 @@ public class ProcessController {
         return map;
     }
 
+    @ResponseBody
+    @RequestMapping("/get_data")
+    public List get_data() {
+        List<Process> processes = service.selectAllProcess();
+        return processes;
+    }
 
+    @ResponseBody
+    @RequestMapping("/get/{id1}")
+    public Process delete_judge(@PathVariable String id1, HttpServletRequest request){
+        // String id1 = request.getParameter("id");
+        Process process = service.selectByPrimaryKey(id1);
+           /*Map map = new HashMap();
+           map.put()*/
+        return process;
+    }
 
 
 }
